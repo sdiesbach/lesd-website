@@ -1,0 +1,254 @@
+/* ===============================
+   Variables
+   =============================== */
+:root {
+  --side: 110px;
+  /* label width (mirrored on the right) */
+  --gap: 24px;
+  /* space between side and content */
+  --content: 600px;
+  /* content column width */
+  --row-gap: 10px;
+  /* vertical spacing between rows */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: #000;
+  background: #fff;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ===============================
+   Page grid: 3 columns
+   =============================== */
+.container {
+  display: grid;
+  grid-template-columns: var(--side) var(--content) var(--side);
+  column-gap: var(--gap);
+  justify-content: center;
+  padding: 84px 16px 56px;
+}
+
+/* ===============================
+   Header (aligned with content column)
+   =============================== */
+.hero {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: var(--side) var(--content) var(--side);
+  column-gap: var(--gap);
+  margin-bottom: 18px;
+}
+
+.hero-main {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 5px #f2f2f2,
+    0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.name {
+  font-size: 26px;
+  line-height: 1.1;
+  font-weight: 500;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: rgba(0, 0, 0, .6);
+  font-size: 14px;
+}
+
+/* ===============================
+   Rows (grid per row to control spacing)
+   =============================== */
+.row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: var(--side) var(--content) var(--side);
+  column-gap: var(--gap);
+  align-items: start;
+  margin: var(--row-gap) 0;
+}
+
+.label {
+  grid-column: 1;
+  text-align: right;
+  font-size: 11px;
+  color: rgba(0, 0, 0, .55);
+  padding-top: 4px;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.content {
+  grid-column: 2;
+  font-size: 15px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.content p {
+  margin: 0 0 10px;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
+
+.spacer {
+  grid-column: 3;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, .18);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+  font-size: 15px;
+}
+
+.button:hover {
+  border-color: rgba(0, 0, 0, .36);
+}
+
+/* Footer */
+.footer p {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(0, 0, 0, .6);
+}
+
+/* ===============================
+   Responsive
+   =============================== */
+
+/* Tablet-ish: slightly narrower content but keep 3 columns */
+@media (max-width: 900px) {
+  :root {
+    --side: 88px;
+    --gap: 18px;
+    --content: min(92vw, 560px);
+    --row-gap: 10px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .avatar {
+    width: 84px;
+    height: 84px;
+    box-shadow: 0 0 0 6px #f2f2f2, 0 8px 24px rgba(0, 0, 0, .08);
+  }
+}
+
+/* Phone: stack rows, show label above content */
+@media (max-width: 640px) {
+  :root {
+    --side: 0px;
+    /* we collapse the side columns */
+    --gap: 16px;
+    --content: min(92vw, 540px);
+  }
+
+  /* Container becomes a single column centered */
+  .container {
+    grid-template-columns: 1fr;
+    padding: 56px 14px 36px;
+    row-gap: 12px;
+  }
+
+  /* Header centered */
+  .hero {
+    grid-template-columns: 1fr;
+    margin-bottom: 10px;
+  }
+
+  .hero-main {
+    grid-column: 1;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  /* Rows become a single column; label appears above content */
+  .row {
+    grid-template-columns: 1fr;
+    margin: 8px 0;
+    row-gap: 6px;
+  }
+
+  .label {
+    grid-column: 1;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: .2px;
+    color: rgba(0, 0, 0, .55);
+    padding-top: 0;
+  }
+
+  .content {
+    grid-column: 1;
+    font-size: 16px;
+    text-align: left;
+    /* left-align for better readability on phones */
+    hyphens: auto;
+  }
+
+  /* Button: bigger tap target, full-width look (but not 100%) */
+  .button {
+    width: auto;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 16px;
+  }
+
+  /* Footer: center it a bit more on small screens */
+  .footer p {
+    font-size: 13px;
+    text-align: left;
+  }
+}
